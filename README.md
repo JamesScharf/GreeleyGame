@@ -5,6 +5,8 @@
 * Has a great API
 * Works like a roguelike (character moves in a grid)
 
+*Rendering:*
+* We're using JavaFX's Canvas element
 
 *Maps:*
 * Each "map" is one fully rendered screen
