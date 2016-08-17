@@ -25,6 +25,7 @@ public class GameState {
 
 		if ( this.array[x][y] == null ) {
 			this.array[x][y] = entity;
+			entity.setXY(x, y);
 			return null;
 		}
 		else {

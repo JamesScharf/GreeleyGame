@@ -4,8 +4,40 @@ public abstract class Entity {
     private boolean collidable;
     private Image image;
 
-    public Entity(Image image) {
+    private GameState game;
+
+    private int x;
+    private int y;
+
+    public Entity(GameState game, Image image) {
         this.image = image;
+        this.game = game;
+    }
+
+    public Entity(GameState game, String imagePath) {
+        this.image = new Image(imagePath);
+        this.game = game;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setXY(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     public void setImage(Image image) {
