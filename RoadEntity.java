@@ -149,17 +149,12 @@ public class RoadEntity extends Entity {
 
                 if ( neighbor != null && neighbor instanceof RoadEntity ) {
                     neighbors[x][y] = true;
-                    System.out.print("1 ");
                 }
                 else {
                     neighbors[x][y] = false;
-                    System.out.print("0 ");
                 }
             }
-
-            System.out.println();
         }
-        System.out.println();
 
         for ( int i = 0; i < roadConfigurations.length; i++ ) {
             boolean good = true;

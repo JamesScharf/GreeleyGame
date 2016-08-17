@@ -26,6 +26,8 @@ public class Game extends Application {
 	private GraphicsContext gc;
 	private Canvas canvas;
 
+	private static Image defaultTile = new Image("assets/images/Tile/medievalTile_57.png");
+
 	@Override
 	public void start(Stage stage) {
 		stage.setTitle("GreeleyGame");
@@ -63,15 +65,14 @@ public class Game extends Application {
 	// startX/startY should be the starting tile that will be rendered
 	// Renders one part of the map at once
 	public void render(int startX, int startY) {
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
+		// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for(int x = startX; x < startX + this.width; x++ ) {
 			for ( int y = startY; y < startY + this.height; y++) {
 				Image entityImage = null;
 				Entity entity = this.game.get(x, y);
 
 				if ( entity == null ) {
-					entityImage = new Image("assets/images/Tile/medievalTile_57.png");
+					entityImage = defaultTile;
 				}
 				else {
 					entityImage = entity.getImage();
