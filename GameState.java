@@ -10,6 +10,14 @@ public class GameState {
 		this.height = height;
 	}
 
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
 	public Entity set(int x, int y, Entity entity) {
 		if ( x < 0 || x >= this.width || y < 0 || y >= this.height ) {
 			return null;
