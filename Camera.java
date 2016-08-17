@@ -9,9 +9,10 @@ import javafx.scene.*;
 import javafx.scene.paint.*;
 import javafx.scene.canvas.*;
 
-private Group root;
 
 public class Camera extends Application {
+	private Group root;
+
 	public Camera(String[] args, String[][] totalMap, int gridHeight, int gridWidth) {
 
 		primaryStage.setScene(new Scene(root, physicalHeight, physicalWidth)); //Needs to go last
@@ -33,11 +34,16 @@ public class Camera extends Application {
 		Group root = new Group();
 		root.getChildren().add(btn);
 	}
-	public renderOnePart(String[][] totalMap, int physicalHeight, int physicalWidth) {
-		int tilesPerHeight = physicalHeight/gridHeight;
-		int tilesPerWidth = physicalWidth/gridWidth;
-		int totalTiles = tilesPerHeight*tilesPerWidth; //The max number of tiles that can be rendered on the screen at once
-		for(int i=0; i<totalTiles)
+	public renderOnePart(String[][] totalMap, int physicalHeight, int physicalWidth) { //Renders one part of the map at once
+		int tilesPerHeight = physicalHeight/64; //64 is the x y size of the image tile
+		int tilesPerWidth = physicalWidth/64;
+		//int totalTiles = tilesPerHeight*tilesPerWidth; //The max number of tiles that can be rendered on the screen at once
+		for(int x=0; x<tilesPerWidth; x++) {
+			for(int y=0; y<tilesPerHeight; y++) {
+				Entity location = totalMap[x*64][y*64];
+				root.getChildren().add(new Image(location.getImage());
+			}
+		}
 	}
 
 }
