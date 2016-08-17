@@ -4,10 +4,15 @@ public abstract class Entity {
     private boolean collidable;
     private Image image;
 
-    private GameState game;
+    protected GameState game;
 
     private int x;
     private int y;
+
+    public Entity(GameState game) {
+        this.game = game;
+        this.image = null;
+    }
 
     public Entity(GameState game, Image image) {
         this.image = image;

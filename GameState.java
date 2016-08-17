@@ -51,7 +51,9 @@ public class GameState {
 	public void update() {
 		for ( int x = 0; x < this.width; x++ ) {
 			for ( int y = 0; y < this.height; y++ ) {
-				this.array[x][y].update();
+				if ( this.array[x][y] != null ) {
+					this.array[x][y].update();
+				}
 			}
 		}
 	}
