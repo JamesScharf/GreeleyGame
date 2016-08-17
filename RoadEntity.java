@@ -145,7 +145,7 @@ public class RoadEntity extends Entity {
 
         for ( int y = 0; y < 3; y++ ) {
             for ( int x = 0; x < 3; x++ ) {
-                Entity neighbor = this.game.get(x - 1 + getX(), y - 1 + getY());
+                Entity neighbor = this.game.getTile(x - 1 + getX(), y - 1 + getY());
 
                 if ( neighbor != null && neighbor instanceof RoadEntity ) {
                     neighbors[x][y] = true;

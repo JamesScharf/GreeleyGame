@@ -48,10 +48,10 @@ public class Game extends Application {
 
 	public void loadGame() {
 		game = new GameState(50, 50);
-		game.set(0, 0, new RoadEntity(this.game));
-		game.set(0, 1, new RoadEntity(this.game));
-		game.set(0, 2, new RoadEntity(this.game));
-		game.set(1, 1, new RoadEntity(this.game));
+		game.setTile(0, 0, new RoadEntity(this.game));
+		game.setTile(0, 1, new RoadEntity(this.game));
+		game.setTile(0, 2, new RoadEntity(this.game));
+		game.setTile(1, 1, new RoadEntity(this.game));
 
 		new AnimationTimer() {
             @Override
@@ -68,17 +68,24 @@ public class Game extends Application {
 		// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for(int x = startX; x < startX + this.width; x++ ) {
 			for ( int y = startY; y < startY + this.height; y++) {
-				Image entityImage = null;
-				Entity entity = this.game.get(x, y);
+				Image tileImage = null;
 
-				if ( entity == null ) {
-					entityImage = defaultTile;
+				Entity tile = this.game.getTile(x, y);
+
+				if ( tile == null ) {
+					tileImage = defaultTile;
 				}
 				else {
-					entityImage = entity.getImage();
+					tileImage = tile.getImage();
 				}
 
-				gc.drawImage(entityImage, y * tileHeight, x * tileWidth);
+				gc.drawImage(tileImage, y * tileHeight, x * tileWidth);
+
+				Entity object = this.game.getObject(x, y);
+
+				if ( object != null ) {
+					gc.drawImage(object.getImage(), y * tileHeight, x * tileWidth);
+				}
 			}
 		}
 	}
