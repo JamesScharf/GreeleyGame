@@ -18,25 +18,18 @@ public class GameState {
 		return height;
 	}
 
-	public Entity set(int x, int y, Entity entity) {
+	public boolean set(int x, int y, Entity entity) {
 		if ( x < 0 || x >= this.width || y < 0 || y >= this.height ) {
-			return null;
+			return false;
 		}
 
 		if ( this.array[x][y] == null ) {
 			this.array[x][y] = entity;
 			entity.setXY(x, y);
-			return null;
+			return true;
 		}
 		else {
-			if ( !this.array[x][y].isCollidable() ) {
-				Entity tmp = this.array[x][y];
-				this.array[x][y] = entity;
-				return tmp;
-			}
-			else {
-				return null;
-			}
+			return false;
 		}
 	}
 

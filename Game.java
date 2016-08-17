@@ -23,20 +23,18 @@ public class Game extends Application {
 	private int height = 10;
 
 	private StackPane rootPane;
-	private TilePane tilePane;
+	private GraphicsContext gc;
+	private Canvas canvas;
 
 	@Override
 	public void start(Stage stage) {
 		stage.setTitle("GreeleyGame");
 
-		tilePane = new TilePane();
-		tilePane.setHgap(0);
-		tilePane.setVgap(0);
-		tilePane.setPrefRows(this.width);
-		tilePane.setPrefColumns(this.height);
+		canvas = new Canvas(tileWidth * width, tileHeight * height);
+	   	gc = canvas.getGraphicsContext2D();
 
 		rootPane = new StackPane();
-		rootPane.getChildren().add(tilePane);
+		rootPane.getChildren().add(canvas);
 
 		this.loadGame();
 		this.render(0, 0);
@@ -50,6 +48,7 @@ public class Game extends Application {
 		game = new GameState(50, 50);
 		game.set(0, 0, new RoadEntity(this.game));
 		game.set(0, 1, new RoadEntity(this.game));
+		game.set(0, 2, new RoadEntity(this.game));
 		game.set(1, 1, new RoadEntity(this.game));
 
 		new AnimationTimer() {
@@ -64,7 +63,7 @@ public class Game extends Application {
 	// startX/startY should be the starting tile that will be rendered
 	// Renders one part of the map at once
 	public void render(int startX, int startY) {
-		tilePane.getChildren().clear();
+		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
 		for(int x = startX; x < startX + this.width; x++ ) {
 			for ( int y = startY; y < startY + this.height; y++) {
@@ -78,7 +77,7 @@ public class Game extends Application {
 					entityImage = entity.getImage();
 				}
 
-				tilePane.getChildren().add(new ImageView(entityImage));
+				gc.drawImage(entityImage, y * tileHeight, x * tileWidth);
 			}
 		}
 	}
