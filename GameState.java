@@ -17,7 +17,7 @@ public class GameState {
 
 		if ( this.array[x][y] == null ) {
 			this.array[x][y] = entity;
-			return entity;
+			return null;
 		}
 		else {
 			if ( !this.array[x][y].isCollidable() ) {
