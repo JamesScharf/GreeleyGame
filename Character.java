@@ -1,4 +1,4 @@
-public class Character extends Entity { //Both for players and nonplayers
+public abstract class Character extends Entity { //Both for players and nonplayers
 	private boolean isPlayer;
 	private boolean canMove;
 
