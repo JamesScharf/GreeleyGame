@@ -19,16 +19,16 @@ import javafx.stage.Stage;
 
 
 public class Camera extends Application {
-	private Group root;
+	private Pane root = new Pane();
 
-	public Camera(String[] args, String[][] totalMap, int gridHeight, int gridWidth) {
-
+	public Camera(String[] args, String[][] totalMap, int physicalHeight, int physicalWidth) {
+		start(Stage primaryStage, physicalHeight, physicalWidth)
 		primaryStage.setScene(new Scene(root, physicalHeight, physicalWidth)); //Needs to go last
 		primaryStage.show();
 		launch(args);
 	}
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage, int physicalHeight, int physicalWidth) {
 		primaryStage.setTitle("GreeleyGame");
 		Button btn = new Button();
 		btn.setText("Say 'Hello World'");
@@ -38,22 +38,23 @@ public class Camera extends Application {
 				System.out.println("Hello World!");
 			}
 		});
-
-		Group root = new Group();
-
-		root.getChildren().add(btn);
 	}
-	public renderOnePart(String[][] totalMap, int physicalHeight, int physicalWidth) { //Renders one part of the map at once
+
+	//startX/startY should be the starting tile that will be rendered
+	public renderOnePart(String[][] totalMap, int physicalHeight, int physicalWidth, int startX, int startY) { //Renders one part of the map at once
 		int tilesPerHeight = physicalHeight/64; //64 is the x y size of the image tile
 		int tilesPerWidth = physicalWidth/64;
 		TilePane tile = new TilePane();
 	    tile.setHgap(0);
 	    tile.setPrefColumns(tilesPerHeight);
 		//int totalTiles = tilesPerHeight*tilesPerWidth; //The max number of tiles that can be rendered on the screen at once
-		for(int x=0; x<tilesPerWidth; x++) {
-			for(int y=0; y<tilesPerHeight; y++) {
-				Image location = totalMap[x*64][y*64].getImage();
-				root.getChildren().add(new ImageView(location.getImage());
+		for(int x=startX; x<tilesPerWidth; x++) {
+			for(int y=startY; y<tilesPerHeight; y++) {
+				Image entityImage = totalMap[x][y].getImage();
+				ImageView imagePlacement = new ImageView();
+				imagePlacement.setImage(entityImage);
+				imagePlacement.relocate(x*64, y*64);
+				root.getChildren().add(imagePlacement;
 			}
 		}
 	}
