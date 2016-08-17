@@ -1,6 +1,6 @@
 import javafx.scene.image.Image;
 
-public class Entity {
+public abstract class Entity {
     private boolean collidable;
     private Image image;
 
@@ -8,8 +8,12 @@ public class Entity {
         this.image = image;
     }
 
-    public void update() {
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
+    public Image getImage() {
+        return image;
     }
 
     public void setCollidable(boolean collidable) {
@@ -19,4 +23,6 @@ public class Entity {
     public boolean isCollidable() {
         return collidable;
     }
+
+    public abstract void update();
 }
