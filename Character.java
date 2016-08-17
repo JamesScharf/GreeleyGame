@@ -4,22 +4,22 @@ public class Character extends Entity { //Both for players and nonplayers
 	public void moveRight() {
 		int x = this.game.getX();
 		int y = this.game.getY();
-		this.game.setXY(x+1, y);
+		this.game.setObject(x+1, y, this);
 	}
 	public void moveLeft() {
 		int x = this.game.getX();
 		int y = this.game.getY();
-		this.game.setXY(x-1, y);
+		this.game.setObject(x-1, y, this);
 	}
 	public void moveUp() {
 		int x = this.game.getX();
 		int y = this.game.getY();
-		this.game.setXY(x, y+1);
+		this.game.setObject(x, y+1, this);
 	}
 	public void moveDown() {
 		int x = this.game.getX();
 		int y = this.game.getY();
-		this.game.setXY(x, y-1);
+		this.game.setObject(x, y-1, this);
 	}
 	public void isPlayer(boolean player) {
 		this.isPlayer = player;
