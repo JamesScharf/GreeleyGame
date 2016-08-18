@@ -71,6 +71,7 @@ public class Game extends Application {
 		stage.show();
 	}
 
+	// Initialzie the GameState
 	public void loadGame() {
 		game = new GameState(50, 50);
 
@@ -84,6 +85,7 @@ public class Game extends Application {
 		game.setPrimaryCharacter(prim);
 	}
 
+	// Called every frame
 	public void tick() {
 		game.update();
 		render(0, 0);
@@ -93,6 +95,8 @@ public class Game extends Application {
         tracker.resetAverageFPS();
 	}
 
+	// Called whenever a keyboard button is pressed.
+	// Code is the keyboard character pressed.
 	public void keyboardHandled(String code) {
 		if ( game.getPrimaryCharacter() != null && game.getPrimaryCharacter() instanceof Character ) {
 			Character character = (Character) game.getPrimaryCharacter();
