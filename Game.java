@@ -95,8 +95,22 @@ public class Game extends Application {
 		render((prim.getX() / this.width) * this.width, (prim.getY() / this.height) * this.height);
 
 		this.fps = tracker.getAverageFPS();
-		this.stage.setTitle("GreeleyGame - " + String.format("%.1f", fps) + "FPS");
+		// this.stage.setTitle("GreeleyGame - " + String.format("%.1f", fps) + "FPS");
         tracker.resetAverageFPS();
+		this.drawDebugInfo();
+	}
+
+	// Draws information helpful for debugging
+	public void drawDebugInfo() {
+		// gc.setTextAlign(TextAlignment.CENTER);
+        gc.setTextBaseline(VPos.CENTER);
+
+		Character prim = game.getPrimaryCharacter();
+
+		gc.fillText("Player Pos: (" + prim.getY() + ", " + prim.getX() +")", 0, (14 * 1));
+		gc.fillText("FPS: " + String.format("%.1f", fps) + "FPS",            0, (14 * 2));
+		gc.fillText("Camera: (" + ((prim.getY() / this.height) * this.height) + ", "
+								+ ((prim.getX() / this.width) * this.width) + ")", 0, (14 * 3));
 	}
 
 	// Called whenever a keyboard button is pressed.
