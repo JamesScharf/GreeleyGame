@@ -88,7 +88,7 @@ public class Game extends Application {
 	// Called every frame
 	public void tick() {
 		game.update();
-		render(0, 0);
+		render(0, 1);
 
 		this.fps = tracker.getAverageFPS();
 		this.stage.setTitle("GreeleyGame - " + String.format("%.1f", fps) + "FPS");
@@ -125,7 +125,7 @@ public class Game extends Application {
 
 	// startX/startY should be the starting tile that will be rendered
 	// Renders one part of the map at once
-	public void render(int startX, int startY) {
+	public void render(int startY, int startX) {
 		// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for(int x = startX; x < startX + this.width; x++ ) {
 			for ( int y = startY; y < startY + this.height; y++) {
@@ -140,12 +140,12 @@ public class Game extends Application {
 					tileImage = tile.getImage();
 				}
 
-				gc.drawImage(tileImage, y * tileHeight - startY, x * tileWidth - startX);
+				gc.drawImage(tileImage, (y - startY) * tileHeight, (x - startX) * tileWidth);
 
 				Entity object = this.game.getObject(x, y);
 
 				if ( object != null ) {
-					gc.drawImage(object.getImage(), y * tileHeight - startY, x * tileWidth - startX);
+					gc.drawImage(object.getImage(), (y - startY) * tileHeight, (x - startX) * tileWidth);
 				}
 			}
 		}
