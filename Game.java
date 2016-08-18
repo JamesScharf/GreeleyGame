@@ -1,3 +1,5 @@
+import com.sun.javafx.perf.PerformanceTracker;
+
 import javafx.application.*;
 import javafx.animation.*;
 import javafx.event.*;
@@ -24,11 +26,16 @@ public class Game extends Application {
 	private GraphicsContext gc;
 	private Canvas canvas;
 	private Scene scene;
+	private Stage stage;
+
+	private float fps;
+	private PerformanceTracker tracker;
 
 	private static Image defaultTile = new Image("assets/images/Tile/medievalTile_57.png");
 
 	@Override
 	public void start(Stage stage) {
+		this.stage = stage;
 		stage.setTitle("GreeleyGame");
 
 		canvas = new Canvas(tileWidth * width, tileHeight * height);
@@ -40,6 +47,24 @@ public class Game extends Application {
 		this.scene = new Scene(rootPane, width * 64, height * 64);
 
 		this.loadGame();
+
+		new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                tick();
+            }
+        }.start();
+
+		this.scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+        	@Override
+        	public void handle(KeyEvent keyEvent) {
+				String code = keyEvent.getCode().toString();
+				keyboardHandled(code);
+			}
+		});
+
+		this.tracker = PerformanceTracker.getSceneTracker(scene);
+
 		this.render(0, 0);
 
 		stage.setScene(this.scene);
@@ -48,6 +73,7 @@ public class Game extends Application {
 
 	public void loadGame() {
 		game = new GameState(50, 50);
+
 		game.setTile(0, 0, new RoadEntity(this.game));
 		game.setTile(0, 1, new RoadEntity(this.game));
 		game.setTile(0, 2, new RoadEntity(this.game));
@@ -56,45 +82,41 @@ public class Game extends Application {
 		Character prim = new Character(this.game);
 		game.setObject(5, 1, prim);
 		game.setPrimaryCharacter(prim);
+	}
 
-		new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                game.update();
-				render(0, 0);
-            }
-        }.start();
+	public void tick() {
+		game.update();
+		render(0, 0);
 
-		this.scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-        	@Override
-        	public void handle(KeyEvent keyEvent) {
-				String code = keyEvent.getCode().toString();
+		this.fps = tracker.getAverageFPS();
+		this.stage.setTitle("GreeleyGame - " + String.format("%.1f", fps) + "FPS");
+        tracker.resetAverageFPS();
+	}
 
-				if ( game.getPrimaryCharacter() != null && game.getPrimaryCharacter() instanceof Character ) {
-					Character character = (Character) game.getPrimaryCharacter();
+	public void keyboardHandled(String code) {
+		if ( game.getPrimaryCharacter() != null && game.getPrimaryCharacter() instanceof Character ) {
+			Character character = (Character) game.getPrimaryCharacter();
 
-					if ( code.equals("UP") ) {
-						character.moveUp();
-					}
-					else if ( code.equals("DOWN") ) {
-						character.moveDown();
-					}
-					else if ( code.equals("LEFT") ) {
-						character.moveLeft();
-					}
-					else if ( code.equals("RIGHT") ) {
-						character.moveRight();
-					}
-					else if ( code.equals("ESCAPE") ) {
-						Platform.exit();
-    					System.exit(0);
-					}
-					else {
-						System.out.println("Got character " + code);
-					}
-				}
+			if ( code.equals("UP") ) {
+				character.moveUp();
 			}
-		});
+			else if ( code.equals("DOWN") ) {
+				character.moveDown();
+			}
+			else if ( code.equals("LEFT") ) {
+				character.moveLeft();
+			}
+			else if ( code.equals("RIGHT") ) {
+				character.moveRight();
+			}
+			else if ( code.equals("ESCAPE") ) {
+				Platform.exit();
+				System.exit(0);
+			}
+			else {
+				System.out.println("Got character " + code);
+			}
+		}
 	}
 
 	// startX/startY should be the starting tile that will be rendered
