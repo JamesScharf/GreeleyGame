@@ -52,6 +52,7 @@ public class Game extends Application {
 		game.setTile(0, 1, new RoadEntity(this.game));
 		game.setTile(0, 2, new RoadEntity(this.game));
 		game.setTile(1, 1, new RoadEntity(this.game));
+		game.setObject(5, 1, new Character(this.game));
 
 		new AnimationTimer() {
             @Override
