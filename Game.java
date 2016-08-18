@@ -1,15 +1,13 @@
-import javafx.application.Application;
+import javafx.application.*;
+import javafx.animation.*;
 import javafx.event.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.scene.*;
-import javafx.scene.paint.*;
-import javafx.scene.canvas.*;
-import javafx.animation.AnimationTimer;
 import javafx.geometry.*;
 import javafx.scene.*;
+import javafx.scene.canvas.*;
+import javafx.scene.control.*;
 import javafx.scene.image.*;
+import javafx.scene.input.*;
+import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.stage.*;
 
@@ -25,6 +23,7 @@ public class Game extends Application {
 	private StackPane rootPane;
 	private GraphicsContext gc;
 	private Canvas canvas;
+	private Scene scene;
 
 	private static Image defaultTile = new Image("assets/images/Tile/medievalTile_57.png");
 
@@ -38,11 +37,12 @@ public class Game extends Application {
 		rootPane = new StackPane();
 		rootPane.getChildren().add(canvas);
 
+		this.scene = new Scene(rootPane, width * 64, height * 64);
+
 		this.loadGame();
 		this.render(0, 0);
 
-		Scene scene = new Scene(rootPane, width * 64, height * 64);
-		stage.setScene(scene);
+		stage.setScene(this.scene);
 		stage.show();
 	}
 
@@ -52,7 +52,10 @@ public class Game extends Application {
 		game.setTile(0, 1, new RoadEntity(this.game));
 		game.setTile(0, 2, new RoadEntity(this.game));
 		game.setTile(1, 1, new RoadEntity(this.game));
-		game.setObject(5, 1, new Character(this.game));
+
+		Character prim = new Character(this.game);
+		game.setObject(5, 1, prim);
+		game.setPrimaryCharacter(prim);
 
 		new AnimationTimer() {
             @Override
@@ -61,6 +64,37 @@ public class Game extends Application {
 				render(0, 0);
             }
         }.start();
+
+		this.scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+        	@Override
+        	public void handle(KeyEvent keyEvent) {
+				String code = keyEvent.getCode().toString();
+
+				if ( game.getPrimaryCharacter() != null && game.getPrimaryCharacter() instanceof Character ) {
+					Character character = (Character) game.getPrimaryCharacter();
+
+					if ( code.equals("UP") ) {
+						character.moveUp();
+					}
+					else if ( code.equals("DOWN") ) {
+						character.moveDown();
+					}
+					else if ( code.equals("LEFT") ) {
+						character.moveLeft();
+					}
+					else if ( code.equals("RIGHT") ) {
+						character.moveRight();
+					}
+					else if ( code.equals("ESCAPE") ) {
+						Platform.exit();
+    					System.exit(0);
+					}
+					else {
+						System.out.println("Got character " + code);
+					}
+				}
+			}
+		});
 	}
 
 	// startX/startY should be the starting tile that will be rendered

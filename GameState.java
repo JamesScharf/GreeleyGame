@@ -5,6 +5,8 @@ public class GameState {
 	private int width;
 	private int height;
 
+	private Entity primaryCharacter;
+
 	public GameState(int width, int height) {
 		this.tileMap = new Entity[width][height];
 		this.objectMap = new Entity[width][height];
@@ -44,6 +46,14 @@ public class GameState {
 		return this.tileMap[x][y];
 	}
 
+	public void removeObject(int x, int y) {
+		if ( x < 0 || x >= this.width || y < 0 || y >= this.height ) {
+			return;
+		}
+
+		this.objectMap[x][y] = null;
+	}
+
 	public boolean setObject(int x, int y, Entity entity) {
 		if ( x < 0 || x >= this.width || y < 0 || y >= this.height ) {
 			return false;
@@ -51,7 +61,11 @@ public class GameState {
 
 		if ( this.objectMap[x][y] == null ) {
 			this.objectMap[x][y] = entity;
-			entity.setXY(x, y);
+
+			if ( entity != null ) {
+				entity.setXY(x, y);
+			}
+
 			return true;
 		}
 		else {
@@ -65,6 +79,14 @@ public class GameState {
 		}
 
 		return this.objectMap[x][y];
+	}
+
+	public void setPrimaryCharacter(Entity entity) {
+		this.primaryCharacter = entity;
+	}
+
+	public Entity getPrimaryCharacter() {
+		return this.primaryCharacter;
 	}
 
 	public void update() {

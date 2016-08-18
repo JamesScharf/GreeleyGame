@@ -10,28 +10,46 @@ public class Character extends Entity { //Both for players and nonplayers
 	}
 
 	public void moveRight() {
-		int x = this.getX();
-		int y = this.getY();
-		this.game.setObject(x+1, y, this);
+		int x = getX();
+		int y = getY();
+
+
+		if ( this.game.setObject(x, y + 1, this) ) {
+			this.game.removeObject(x, y);
+		}
 	}
+
 	public void moveLeft() {
-		int x = this.getX();
-		int y = this.getY();
-		this.game.setObject(x-1, y, this);
+		int x = getX();
+		int y = getY();
+
+		if ( this.game.setObject(x, y - 1, this) ) {
+			this.game.removeObject(x, y);
+		}
 	}
+
 	public void moveUp() {
-		int x = this.getX();
-		int y = this.getY();
-		this.game.setObject(x, y+1, this);
+		int x = getX();
+		int y = getY();
+
+		if ( this.game.setObject(x - 1, y, this) ) {
+			this.game.removeObject(x, y);
+		}
 	}
+
 	public void moveDown() {
-		int x = this.getX();
-		int y = this.getY();
-		this.game.setObject(x, y-1, this);
+		int x = getX();
+		int y = getY();
+
+		if ( this.game.setObject(x + 1, y, this) ) {
+			this.game.removeObject(x, y);
+		}
 	}
+
 	public void isPlayer(boolean player) {
 		this.isPlayer = player;
 	}
+
 	public void canMove(boolean canPlayerMove) {
 		this.canMove = canPlayerMove;
 	}
