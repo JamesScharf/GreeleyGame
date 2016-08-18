@@ -79,12 +79,12 @@ public class Game extends Application {
 					tileImage = tile.getImage();
 				}
 
-				gc.drawImage(tileImage, y * tileHeight, x * tileWidth);
+				gc.drawImage(tileImage, y * tileHeight - startY, x * tileWidth - startX);
 
 				Entity object = this.game.getObject(x, y);
 
 				if ( object != null ) {
-					gc.drawImage(object.getImage(), y * tileHeight, x * tileWidth);
+					gc.drawImage(object.getImage(), y * tileHeight - startY, x * tileWidth - startX);
 				}
 			}
 		}
