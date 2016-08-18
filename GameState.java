@@ -5,7 +5,7 @@ public class GameState {
 	private int width;
 	private int height;
 
-	private Entity primaryCharacter;
+	private Character primaryCharacter;
 
 	public GameState(int width, int height) {
 		this.tileMap = new Entity[width][height];
@@ -81,8 +81,8 @@ public class GameState {
 		return this.objectMap[x][y];
 	}
 
-	public void setPrimaryCharacter(Entity entity) {
-		this.primaryCharacter = entity;
+	public void setPrimaryCharacter(Character character) {
+		this.primaryCharacter = character;
 	}
 
 	public Entity getPrimaryCharacter() {

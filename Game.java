@@ -12,6 +12,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.stage.*;
+import java.util.*;
 
 
 public class Game extends Application {
@@ -142,7 +143,7 @@ public class Game extends Application {
 
 				gc.drawImage(tileImage, (y - startY) * tileHeight, (x - startX) * tileWidth);
 
-				Entity object = this.game.getObject(x, y);
+				Entity object = this.game.getObject(x, y); //The character
 
 				if ( object != null ) {
 					gc.drawImage(object.getImage(), (y - startY) * tileHeight, (x - startX) * tileWidth);
