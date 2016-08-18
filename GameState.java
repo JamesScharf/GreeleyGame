@@ -85,7 +85,7 @@ public class GameState {
 		this.primaryCharacter = character;
 	}
 
-	public Entity getPrimaryCharacter() {
+	public Character getPrimaryCharacter() {
 		return this.primaryCharacter;
 	}
 

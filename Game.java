@@ -89,7 +89,10 @@ public class Game extends Application {
 	// Called every frame
 	public void tick() {
 		game.update();
-		render(0, 1);
+
+		Character prim = game.getPrimaryCharacter();
+		// This looks like it does nothing, but integer divisions automatically round down.
+		render((prim.getX() / this.width) * this.width, (prim.getY() / this.height) * this.height);
 
 		this.fps = tracker.getAverageFPS();
 		this.stage.setTitle("GreeleyGame - " + String.format("%.1f", fps) + "FPS");
@@ -100,7 +103,7 @@ public class Game extends Application {
 	// Code is the keyboard character pressed.
 	public void keyboardHandled(String code) {
 		if ( game.getPrimaryCharacter() != null && game.getPrimaryCharacter() instanceof Character ) {
-			Character character = (Character) game.getPrimaryCharacter();
+			Character character = game.getPrimaryCharacter();
 
 			if ( code.equals("UP") ) {
 				character.moveUp();
@@ -126,7 +129,7 @@ public class Game extends Application {
 
 	// startX/startY should be the starting tile that will be rendered
 	// Renders one part of the map at once
-	public void render(int startY, int startX) {
+	public void render(int startX, int startY) {
 		// gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for(int x = startX; x < startX + this.width; x++ ) {
 			for ( int y = startY; y < startY + this.height; y++) {
