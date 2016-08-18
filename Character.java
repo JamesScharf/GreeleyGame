@@ -3,11 +3,10 @@ import javafx.scene.image.Image;
 public class Character extends Entity { //Both for players and nonplayers
 	private boolean isPlayer;
 	private boolean canMove;
-	private static Image characterImage = new Image("assets/images/Unit/medievalTile_05.png");
+	private static Image characterImage = new Image("assets/images/Unit/medievalUnit_05.png");
 
 	public Character(GameState game) {
 		super(game, characterImage);
-        this.update();
 	}
 
 	public void moveRight() {
