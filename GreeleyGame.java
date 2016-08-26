@@ -43,6 +43,7 @@ public class GreeleyGame extends Game {
 		this.registerUIElement("Player Pos");
 		this.registerUIElement("FPS");
 		this.registerUIElement("Camera");
+		this.registerUIElement("PlayerHealth");
 	}
 
 	// Called every frame
@@ -52,25 +53,25 @@ public class GreeleyGame extends Game {
 		Character prim = game.getPrimaryCharacter();
 		// This looks like it does nothing, but integer divisions automatically round down.
 		render((prim.getX() / this.width) * this.width, (prim.getY() / this.height) * this.height);
-
 		this.fps = tracker.getAverageFPS();
 		tracker.resetAverageFPS();
-		this.updateDebugInfo();
+		this.updateUIElements();
 	}
 
 	// Draws information helpful for debugging
-	public void updateDebugInfo() {
+	public void updateUIElements() {
 		// gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
 
 		Character prim = game.getPrimaryCharacter();
-
+		int health = prim.getHealth();
 		int cameraX = ((prim.getY() / this.height) * this.height);
 		int cameraY = ((prim.getX() / this.width) * this.width);
 
 		this.updateUIElement("Player Pos", "(" + prim.getY() + ", " + prim.getX() +")");
 		this.updateUIElement("FPS", String.format("%.1f", fps) + "FPS");
 		this.updateUIElement("Camera", "(" + cameraX + ", " + cameraY + ")");
+		this.updateUIElement("PlayerHealth", health + "");
 	}
 
 	// Called whenever a keyboard button is pressed.
