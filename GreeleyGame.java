@@ -34,7 +34,15 @@ public class GreeleyGame extends Game {
 		game.setObject(5, 1, prim);
 		game.setPrimaryCharacter(prim);
 
+		this.setupUI();
+	}
+
+	public void setupUI() {
 		this.tracker = PerformanceTracker.getSceneTracker(scene);
+
+		this.registerUIElement("Player Pos");
+		this.registerUIElement("FPS");
+		this.registerUIElement("Camera");
 	}
 
 	// Called every frame
@@ -47,20 +55,22 @@ public class GreeleyGame extends Game {
 
 		this.fps = tracker.getAverageFPS();
 		tracker.resetAverageFPS();
-		this.drawDebugInfo();
+		this.updateDebugInfo();
 	}
 
 	// Draws information helpful for debugging
-	public void drawDebugInfo() {
+	public void updateDebugInfo() {
 		// gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
 
 		Character prim = game.getPrimaryCharacter();
 
-		gc.fillText("Player Pos: (" + prim.getY() + ", " + prim.getX() +")", 0, (14 * 1));
-		gc.fillText("FPS: " + String.format("%.1f", fps) + "FPS",            0, (14 * 2));
-		gc.fillText("Camera: (" + ((prim.getY() / this.height) * this.height) + ", "
-								+ ((prim.getX() / this.width) * this.width) + ")", 0, (14 * 3));
+		int cameraX = ((prim.getY() / this.height) * this.height);
+		int cameraY = ((prim.getX() / this.width) * this.width);
+
+		this.updateUIElement("Player Pos", "(" + prim.getY() + ", " + prim.getX() +")");
+		this.updateUIElement("FPS", String.format("%.1f", fps) + "FPS");
+		this.updateUIElement("Camera", "(" + cameraX + ", " + cameraY + ")");
 	}
 
 	// Called whenever a keyboard button is pressed.
