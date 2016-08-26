@@ -4,6 +4,7 @@ public class Character extends Entity { //Both for players and nonplayers
 	private boolean isPlayer;
 	private boolean canMove;
 	private static Image characterImage = new Image("assets/images/Unit/medievalUnit_05.png");
+	private int health = 100;
 
 	public Character(GameState game) {
 		super(game, characterImage);
@@ -52,6 +53,14 @@ public class Character extends Entity { //Both for players and nonplayers
 
 	public void canMove(boolean canPlayerMove) {
 		this.canMove = canPlayerMove;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void updateHealth(int newHealth) {
+		health = newHealth;
 	}
 
 	@Override

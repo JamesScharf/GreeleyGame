@@ -28,7 +28,7 @@ public abstract class Game extends Application {
 	protected Canvas canvas;
 	protected Scene scene;
 	protected Stage stage;
-	
+
 	@Override
 	public void start(Stage stage) {
 		this.stage = stage;
@@ -38,6 +38,7 @@ public abstract class Game extends Application {
 	   	gc = canvas.getGraphicsContext2D();
 
 		rootPane = new StackPane();
+		rootPane.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 		rootPane.getChildren().add(canvas);
 
 		this.scene = new Scene(rootPane, width * 64, height * 64);
